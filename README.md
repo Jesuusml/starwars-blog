@@ -72,5 +72,5 @@ LinkedIn: https://www.linkedin.com/in/jesus-xtr
 
 ## 📄 Licencia
 
-Este proyecto está bajo la licencia Apache 2.0.  
+Este proyecto está bajo la licencia MIT.  
 Ver el archivo [LICENSE](./LICENSE) para más detalles.

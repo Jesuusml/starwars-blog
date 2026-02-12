@@ -10,7 +10,7 @@ export default function Navbar() {
 
       <div className="collapse navbar-collapse" id="navbarSupportedContent">
         <ul className="navbar-nav ms-auto me-2">
-          <li className="nav-item dropdown">
+          <li className="nav-item dropdown rounded-1">
             <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Favorites
             </a>

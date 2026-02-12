@@ -8,7 +8,7 @@ $sw-blue: darken(mix(#1A17FF, blue, 70%), 20%);
 $sw-dark-blue: #050533;
 
 $max-groups: 15;
-$max-stars: 30;
+$max-stars: 20;
 
 @mixin star-layer($duration) {
   content: "";
@@ -28,8 +28,7 @@ $max-stars: 30;
     $x: random(100); // posición horizontal
 
     // Curva central (parábola)
-    $y-center: (
-      ($x - 50) * ($x - 50) / 100) + 30; // ajusta altura y forma
+    $y-center: calc(($x - 50) * ($x - 50) / 100) + 30; // ajusta altura y forma
 
     // Desviación aleatoria perpendicular a la curva
     $offset: random(100) - 50;
@@ -80,10 +79,9 @@ body {
       mix($sw-blue, $sw-dark-blue, 30%),
       mix($sw-blue, $sw-dark-blue, 15%),
       mix($sw-blue, $sw-dark-blue, 10%),
-      mix($sw-dark-blue, $darker, 20%)
-  );
-background-attachment: fixed;
-overflow: hidden;
+      mix($sw-dark-blue, $darker, 20%));
+  background-attachment: fixed;
+  overflow: hidden;
 }
 
 .stars-layer {
@@ -97,6 +95,7 @@ overflow: hidden;
 
   @for $i from 1 through $max-groups {
     $duration: random(4) + 2s;
+
     .layer#{$i} {
       @include star-layer($duration);
     }

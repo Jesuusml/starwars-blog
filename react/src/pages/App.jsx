@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { getPeople, getVehicles, getPlanets } from "../api/swapi";
 import Card from "../components/Card";
+import Navbar from "../components/Navbar";
 import toTitleCase from "../utils/toTitleCase"
 
 export default function App() {
@@ -34,7 +36,11 @@ export default function App() {
         )}
         {people ? (
           people.map((person, index) => (
-            <Card key={index} person={person}></Card>
+            <Card
+              key={index}
+              person={person}
+              detailsView={() => useNavigate(`/details/people/${person.uid}`)}
+            />
           ))
         ) : `There is no data for people`}
 
@@ -44,7 +50,11 @@ export default function App() {
         )}
         {vehicles ? (
           vehicles.map((vehicle, index) => (
-            <Card key={index} vehicle={vehicle}></Card>
+            <Card
+              key={index}
+              vehicle={vehicle}
+              detailsView={() => useNavigate(`/details/vehicles/${vehicle.uid}`)}
+            />
           ))
         ) : `There is no data for vehicles`}
 
@@ -54,7 +64,11 @@ export default function App() {
         )}
         {planets ? (
           planets.map((planet, index) => (
-            <Card key={index} planet={planet}></Card>
+            <Card
+              key={index}
+              planet={planet}
+              detailsView={() => useNavigate(`/details/planets/${planet.uid}`)}
+            />
           ))
         ) : `There is no data for planets`}
       </>
@@ -79,7 +93,7 @@ export default function App() {
             )}
             {content ? (
               content.map((value, index) => (
-                <Card key={index} {...{ [element[1]]: value }}></Card>
+                <Card key={index} {...{ [element[1]]: value }} />
               ))
             ) : `There is no data for ${element[0]}`}
           </div>
@@ -89,5 +103,12 @@ export default function App() {
   }
 
 
-  return modularRendering();
+  return (
+    <>
+      <Navbar />
+      <div id="main" className="container">
+        {simpleRendering()}
+      </div>
+    </>
+  );
 }

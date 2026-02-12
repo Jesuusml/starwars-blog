@@ -1,0 +1,1 @@
+export const SWAPI_LINK = 'https://www.swapi.tech/api';

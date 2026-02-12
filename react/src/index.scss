@@ -1,11 +1,117 @@
 @import "bootstrap/scss/bootstrap";
 
+$darker: darken($dark, 10%);
+$sw-yellow: #FCDF2B;
+$sw-yellow-light: lighten($sw-yellow, 25%);
+$sw-yellow-dark: darken($sw-yellow, 58%);
+$sw-blue: darken(mix(#1A17FF, blue, 70%), 20%);
+$sw-dark-blue: #050533;
+
+$max-groups: 15;
+$max-stars: 30;
+
+@mixin star-layer($duration) {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 2px;
+  height: 2px;
+  border-radius: 50%;
+  background: white;
+
+  animation: twinkle $duration infinite alternate;
+
+  $shadows: "";
+
+  @for $i from 1 through $max-stars {
+    $x: random(100); // posición horizontal
+
+    // Curva central (parábola)
+    $y-center: (
+      ($x - 50) * ($x - 50) / 100) + 30; // ajusta altura y forma
+
+    // Desviación aleatoria perpendicular a la curva
+    $offset: random(100) - 50;
+    $y: $y-center + $offset;
+
+    // Limitar a 0-100%
+    @if $y >100 {
+      $y: 100;
+    }
+
+    @if $y < 0 {
+      $y: 0;
+    }
+
+    @if $i ==1 {
+      $shadows: "#{$x}vw #{$y}vh #{white}";
+    }
+
+    @else {
+      $shadows: "#{$shadows}, #{$x}vw #{$y}vh #{white}";
+    }
+  }
+
+  box-shadow: #{$shadows};
+}
+
+
+@keyframes twinkle {
+  0% {
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 0.8;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
 body {
-  background-color: $dark;
+  position: relative;
+  min-height: 100vh;
+  background: radial-gradient(ellipse 130% 100% at 50% 105%,
+      mix($sw-blue, $sw-dark-blue, 65%),
+      mix($sw-blue, $sw-dark-blue, 35%),
+      mix($sw-blue, $sw-dark-blue, 30%),
+      mix($sw-blue, $sw-dark-blue, 15%),
+      mix($sw-blue, $sw-dark-blue, 10%),
+      mix($sw-dark-blue, $darker, 20%)
+  );
+background-attachment: fixed;
+overflow: hidden;
+}
+
+.stars-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none; // para que no bloquee clicks
+  z-index: 0; // debajo de #main
+
+  @for $i from 1 through $max-groups {
+    $duration: random(4) + 2s;
+    .layer#{$i} {
+      @include star-layer($duration);
+    }
+  }
+}
+
+
+#main {
+  position: relative;
+  z-index: 1;
+  color: $light;
 }
 
 .navbar {
-  background-color: darken($dark, 10%);
+  background-color: $darker;
   color: $light;
 }
 
@@ -14,9 +120,41 @@ body {
 }
 
 li.dropdown {
-  background-color: $light;
-}
+  border: 1px solid $sw-yellow;
 
-#main {
-  color: $light;
+  & #navbarDropdown {
+    color: $sw-yellow;
+  }
+
+  &:hover,
+  &:hover #navbarDropdown {
+    color: $sw-yellow-light;
+    border-color: $sw-yellow-light;
+  }
+
+  & #navbarDropdown:active {
+    background-color: $sw-yellow-dark;
+  }
+
+  .dropdown-menu {
+    background-color: $darker;
+    border: 1px solid $sw-yellow;
+
+    & .dropdown-item {
+      color: $sw-yellow;
+    }
+
+    &:hover {
+      border-color: $sw-yellow-light;
+    }
+
+    & .dropdown-item:hover {
+      color: $sw-yellow-light;
+      background-color: inherit;
+    }
+
+    & .dropdown-item:active {
+      background-color: $sw-yellow-dark;
+    }
+  }
 }

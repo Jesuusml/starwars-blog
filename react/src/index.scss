@@ -118,6 +118,12 @@ body {
   width: 5rem;
 }
 
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+
 li.dropdown {
   border: 1px solid $sw-yellow;
 
@@ -155,5 +161,16 @@ li.dropdown {
     & .dropdown-item:active {
       background-color: $sw-yellow-dark;
     }
+  }
+}
+
+.card {
+  background-color: $dark;
+  color: $light;
+  box-shadow: 0 1px 15px 7px transparent;
+  transition: box-shadow .3s ease;
+
+  &:hover {
+    box-shadow: 0 1px 15px 7px $sw-yellow;
   }
 }

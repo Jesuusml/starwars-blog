@@ -14,7 +14,7 @@ export default function Card(props) {
     vehicle: ['manufacturer', 'model', 'passengers'],
     planet: ['population', 'terrain', 'climate'],
   };
-  
+
   return (
     <>
       <h2>{data.name}</h2>
@@ -27,6 +27,12 @@ export default function Card(props) {
             </li>
           ))}
       </ul>
+      <button
+        className="btn btn-outline-primary"
+        onClick={props.detailsView}
+      >
+        Learn more!
+      </button>
     </>
   );
 }

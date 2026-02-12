@@ -19,10 +19,10 @@ export default function Card(props) {
 
   return (
     <>
-      <div className="card" style={{ width: "18rem" }}>
+      <div className="card my-auto flex-shrink-0" style={{ width: "18rem" }}>
         {/* <img className="card-img-top" src="/starwars-logo.png" alt="Card image cap" /> */}
         <div className="card-body">
-          <h3 className="card-title mb-4">{data.name}</h3>
+          <h4 className="card-title mb-4">{data.name}</h4>
           <ul>
             {Object.entries(data)
               .filter(([key]) => allowedKeys[type].includes(key))
